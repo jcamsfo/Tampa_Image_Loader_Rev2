@@ -1,0 +1,108 @@
+{
+    "kvs": [
+        {
+            "k": "Foreground_Hue",
+            "v": "0"
+        },
+        {
+            "k": "Foreground_On",
+            "v": "0"
+        },
+        {
+            "k": "Foreground_Black",
+            "v": "0"
+        },
+        {
+            "k": "Background_Gain",
+            "v": "100"
+        },
+        {
+            "k": "Background_Color",
+            "v": "50"
+        },
+        {
+            "k": "V_Mask",
+            "v": "4"
+        },
+        {
+            "k": "Mask_On",
+            "v": "0"
+        },
+        {
+            "k": "Downstream_Gain",
+            "v": "55"
+        },
+        {
+            "k": "Foreground_Color",
+            "v": "50"
+        },
+        {
+            "k": "Show_Displays",
+            "v": "0"
+        },
+        {
+            "k": "Foreground_Size",
+            "v": "48"
+        },
+        {
+            "k": "H_Speed",
+            "v": "6"
+        },
+        {
+            "k": "Invert_Mask",
+            "v": "0"
+        },
+        {
+            "k": "Final_Gain",
+            "v": "55"
+        },
+        {
+            "k": "Video_Enable",
+            "v": "1"
+        },
+        {
+            "k": "Foreground_Gain",
+            "v": "100"
+        },
+        {
+            "k": "Foreground_Gamma",
+            "v": "65"
+        },
+        {
+            "k": "V_Speed",
+            "v": "6"
+        },
+        {
+            "k": "Auto_Size",
+            "v": "0"
+        },
+        {
+            "k": "Sun_Gain",
+            "v": "100"
+        },
+        {
+            "k": "Background_Hue",
+            "v": "0"
+        },
+        {
+            "k": "Background_Gamma",
+            "v": "65"
+        },
+        {
+            "k": "Background_Black",
+            "v": "0"
+        },
+        {
+            "k": "Bypass_Viewing_Gain",
+            "v": "1"
+        },
+        {
+            "k": "H_Mask",
+            "v": "1"
+        }
+    ],
+    "uis": [
+        "MPZ4.ui"
+    ],
+    "version": "1.0"
+}

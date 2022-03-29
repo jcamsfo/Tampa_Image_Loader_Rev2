@@ -1,0 +1,4 @@
+ver4 worked for a while on the cylinder but with big leaks
+ver5 doest talk to my program and wont load a gui from client
+ver6 should have no leaks and has json communication
+	latest commit has key_value_gui6 & MPZ6a.ui & defaults2.json in GUI folder same level as Movies folder
