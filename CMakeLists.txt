@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5.1)
 
-project(Tampa_Image_Loader_Rev2)
+project(Tampa_Image_Loader_Rev5)
 
 set(CMAKE_CXX_STANDARD 17)
 

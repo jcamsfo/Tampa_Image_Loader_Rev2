@@ -110,7 +110,8 @@ Video_Sculpture::Video_Sculpture(void)
   Auto_Clock_Type = 0;
 
   First_Bkgnd = Movie_Path + "wrxz100.mov" ; // Movie_Path + "wrxz100.mov";
-  First_Bkgnd = Movie_Path_3 + "stripes2.mp4" ; // Movie_Path + "wrxz100.mov";
+  // First_Bkgnd = Movie_Path_3 + "stripes2.mp4" ; // Movie_Path + "wrxz100.mov";
+  First_Bkgnd = Movie_Path_2 + "Tampa_Waves_SF.mp4" ; 
   First_Frgnd = Movie_Path + "wtc3s.tif" ; // Movie_Path + "wtc3s.tif";
 
   First_Frgnd_DC = Movie_Path + "dclock_bkgnd.tif" ;  // Movie_Path + "dclock_bkgnd.tif";
@@ -210,7 +211,7 @@ Video_Sculpture::Video_Sculpture(void)
 
   Select_Controls = 0;
   Select_Auto = true;
-  Watch_On = true;
+  Watch_On = false;
 
   Downstream_Gain = .54;
   Start_Up_Gain = 0;
@@ -287,6 +288,7 @@ void Video_Sculpture::Load_Time(void)
   Current_Minute = time_X->tm_min;
   Current_Second = time_X->tm_sec;
   Current_Year_Day = time_X->tm_yday;
+  Time_Current_Total = Current_Hour * 3600 + Current_Minute * 60 + Current_Second;
   // Current_Year_Day = time_X->tm_min;
 
   //  cout << endl << "Current Day, Date and Time is = " << Current_Hour << " " << Current_Minute << " "  <<  Current_Second << endl ; // asctime(time_X);
@@ -1057,6 +1059,8 @@ void Video_Sculpture::GUI_Receive(string gui_name, string gui_value)
 
   else if (gui_name == "Foreground_Gain")
     VP2x.Gain = ((float)std::stoi(gui_value)) / 100;
+  else  if (gui_name == "Foreground_On")
+        Watch_On  = (std::stoi(gui_value));
 
 
     // pad_x = 0,
@@ -1291,6 +1295,19 @@ void Video_Sculpture::Play_All(void)
 {
 
   Sun_Gain = Day_Night_Final_Gain(Sun_Dates_Times, Current_Sunrise, Current_Sunset);
+  Load_Time();
+
+  // std::cout << "Sunrise "   <<  Current_Sunrise  
+  //          << "  Sunset "  << Current_Sunset   << "  Time_Current_Total "  << Time_Current_Total  <<endl ;
+
+  if( (Time_Current_Total > Current_Sunset-3000) || (Time_Current_Total < Current_Sunrise+3000) )
+      Pads_On = true;
+  else
+      Pads_On = false;
+
+
+
+
 
   // all of the other images are stills!!!!!!!!!!!!!!!!!!
   VP1x.Process();
@@ -1547,11 +1564,11 @@ void Video_Sculpture::Mixer(void)
   multiply(VideoSum_For_Output_FU, Final_Output_Gain, VideoSum_For_Output_FU);
 }
 
-void Video_Sculpture::Mixer2(void)
-{
-  VideoSum_FU = VP1x.VideoProc_FU.clone();
-  VideoSum_For_Output_FU = VP1x.VideoProc_FU.clone();
-}
+// void Video_Sculpture::Mixer2(void)
+// {
+//   VideoSum_FU = VP1x.VideoProc_FU.clone();
+//   VideoSum_For_Output_FU = VP1x.VideoProc_FU.clone();
+// }
 
 void Video_Sculpture::Multi_Map_Image_To_Sculpture(void)
 {
@@ -1561,10 +1578,14 @@ void Video_Sculpture::Multi_Map_Image_To_Sculpture(void)
   // New_Timer.Start_Delay_Timer();
   Save_Samples_From_CSV_Map_To_Buffer_RGBW_Convert_Rev8(VideoSum_For_Output_FU, Sampled_Buffer_RGBW);
 
+
+
+
+
   for(uint ii=0; ii<32; ii+=2)
   {
     *(Sampled_Buffer_RGBW + First_Param_Location + ii        ) =    Pad_Info[ii>>1][pad_x] + 256 * Pad_Info[ii>>1][pad_y] ;
-    *(Sampled_Buffer_RGBW + First_Param_Location + ii + 1    ) =  (Pad_Info[ ii>>1 ][ pad_on ]  &&   Pad_Info[ 0 ][ pad_on ] )  ?   Pad_Info[ii>>1][pad_gain] + 256 * Pad_Info[ii>>1][pad_black] : 0 ;
+    *(Sampled_Buffer_RGBW + First_Param_Location + ii + 1    ) =  (Pad_Info[ ii>>1 ][ pad_on ]  &&   Pad_Info[ 0 ][ pad_on ]  &&  Pads_On)  ?   Pad_Info[ii>>1][pad_gain] + 256 * Pad_Info[ii>>1][pad_black] : 0 ;
   }
 
 
@@ -1605,6 +1626,19 @@ void Video_Sculpture::Save_Samples_From_CSV_Map_To_Buffer_RGBW_Convert_Rev8(UMat
 #else
   Vid_Src.convertTo(VideoSum_16, CV_16UC3, 256);
 #endif
+
+
+
+
+  for(int ii=1; ii<16; ii++)
+  if(Pad_Info[ ii ][ pad_screen]  == 1)
+  {
+    point1 = Point( 5 * Pad_Info[ ii ][ pad_x] , 5 * Pad_Info[ ii ][ pad_y] ) ;
+    rectangle(VideoSum_16, point1 , point1 + point2, Scalar(20000, 0, 20000),  -1, LINE_8);
+    }
+
+
+
 
   i = 0;
 
@@ -1809,7 +1843,7 @@ void Video_Sculpture::Display(void)
 
 
 
-    for(int ii=1; ii<15; ii++)
+    for(int ii=1; ii<16; ii++)
       if(Pad_Info[ ii ][ pad_screen]  == 1)
       {
         point1 = Point( 5 * Pad_Info[ ii ][ pad_x] , 5 * Pad_Info[ ii ][ pad_y] ) ;

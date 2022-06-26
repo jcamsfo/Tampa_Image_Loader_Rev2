@@ -96,7 +96,8 @@ int main(int argc, char *argv[])
   else
   {
     key_value_client.open_ui_file("../../GUI/MPZ10C.ui");
-    key_value_client.load_key_value_file("../../GUI/defaults10B.json");
+    // key_value_client.load_key_value_file("../../GUI/defaults10D.json");
+    key_value_client.load_key_value_file("../../GUI/defaults_SF_Waves.json");  
     key_value_client.load_key_value_file("../../GUI/defaults10-pad00.json");
     key_value_client.load_key_value_file("../../GUI/defaults10-pad01.json");
     key_value_client.load_key_value_file("../../GUI/defaults10-pad02.json");
@@ -115,7 +116,7 @@ int main(int argc, char *argv[])
     key_value_client.load_key_value_file("../../GUI/defaults10-pad15.json");                                                 
    }
 
-// for(int i=0; i<3000; i++)sleep_one_millisecond();
+for(int i=0; i<3000; i++)sleep_one_millisecond();
 
 
 
@@ -142,6 +143,7 @@ int main(int argc, char *argv[])
         /*******************************************    Receive / Send parameters from / to the GUI ******************************************/
         if (!SC1.Enable_Old_Menu) 
         {
+          
 
           string gui_name;
           string gui_value;
@@ -307,7 +309,16 @@ int main(int argc, char *argv[])
           if (Process_Time.time_delay > 25)
             cout << " " << std::setprecision(3) << setw(3) << " ** " << (int)Process_Time.time_delay_max;
 
-          cout << endl;
+         // cout << endl;
+        }
+
+
+        if (SC1.Enable_Time_Display) 
+        {
+          cout << "   SR: " <<  SC1.Current_Sunrise <<  "  SS: "   << SC1.Current_Sunset << "  CUR: " << SC1.Time_Current_Total ;
+
+                    cout << endl;
+
         }
         
 

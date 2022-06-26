@@ -236,6 +236,7 @@ public:
   int64_t Current_Hour;
   int64_t Current_Minute;
   int64_t Current_Second;
+  int64_t Time_Current_Total;
   int64_t Current_Year_Day; 
   int64_t Current_Year_Day_Last;
   float Watch_H_Size;
@@ -353,6 +354,8 @@ public:
    // Top Left Corner
     Point point1;
     Point point2;  
+
+    bool Pads_On;
 
 
 

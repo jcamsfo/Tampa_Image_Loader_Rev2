@@ -99,7 +99,7 @@ int Convert_Sun_File(std::string  Sun_Info[][12], int Sun_Dates_Times[12][5][3])
 ///   int tm_isdst; // hours of daylight savings time
 ///}
 
-float Day_Night_Final_Gain(int Sun_Dates_Times[12][5][3], int64_t &Current_Sunrise, int64_t &Current_Sunset )
+float Day_Night_Final_Gain(int Sun_Dates_Times[12][5][3], int64_t &Current_Sunrise, int64_t &Current_Sunset) // , bool & Day_Night )
 {
     time_t time_time;
     struct tm * time_X;
@@ -164,6 +164,8 @@ float Day_Night_Final_Gain(int Sun_Dates_Times[12][5][3], int64_t &Current_Sunri
   //  printf("\nTimeTotal %d  SR %d SS %d  SR_Diff %d   SS_Diff %d  SGain %.2f \n\n", Time_Current_Total, Sunrise, Sunset, Sunrise_Time_Diff, Sunset_Time_Diff, Sun_Gain );
     Current_Sunrise = Sunrise;
     Current_Sunset = Sunset;
+
+
 
     return Sun_Gain ;
 
